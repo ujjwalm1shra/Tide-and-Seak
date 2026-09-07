@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Tide&Seak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="login">
+
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Tide&Seak home"><img src="assets/logo/thislogo.png" alt="Tide&Seak"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html" data-page="home">Home</a>
+      <a href="predict.html" data-page="predict">Predict</a>
+      <a href="simulate.html" data-page="simulate">Simulate</a>
+      <a href="about.html" data-page="about">About Us</a>
+      <a href="faq.html" data-page="faq">FAQ</a>
+      <a href="contact.html" data-page="contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="login.html" class="login-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Login
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <ul>
+    <li><a href="index.html" data-page="home">Home</a></li>
+    <li><a href="predict.html" data-page="predict">Predict</a></li>
+    <li><a href="simulate.html" data-page="simulate">Simulate</a></li>
+    <li><a href="about.html" data-page="about">About Us</a></li>
+    <li><a href="faq.html" data-page="faq">FAQ</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+  <a href="login.html" class="btn btn-secondary mobile-login">Login</a>
+</div>
+
+<main>
+
+  <section class="subpage-hero" style="min-height:74vh;">
+    <div class="wrap">
+      <p class="eyebrow">Login</p>
+      <h1>Sign in to Tide&amp;Seak.</h1>
+      <p>Platform access is being rolled out to early partners. This is a placeholder sign-in screen for the prototype.</p>
+
+      <form class="field-group" onsubmit="event.preventDefault();">
+        <div>
+          <label for="l-email">Email</label>
+          <input type="email" id="l-email" name="email" autocomplete="email" required>
+        </div>
+        <div>
+          <label for="l-password">Password</label>
+          <input type="password" id="l-password" name="password" autocomplete="current-password" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="align-self:flex-start;">Sign In <span class="arrow">→</span></button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo/thislogo.png" alt="Tide&Seak">
+        <p>Intelligent freight forecasting and chartering decision support.</p>
+      </div>
+      <div class="footer-col"><h6>Platform</h6><ul><li><a href="predict.html">Predict</a></li><li><a href="simulate.html">Simulate</a></li><li><a href="predict.html">Optimize</a></li></ul></div>
+      <div class="footer-col"><h6>Company</h6><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h6>Legal</h6><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tide&amp;Seak. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.5h3.9V21H3.5zM10 8.5h3.7v1.7h.05c.52-.98 1.78-2 3.67-2 3.93 0 4.65 2.5 4.65 5.76V21h-3.9v-6.3c0-1.5-.03-3.44-2.1-3.44-2.1 0-2.42 1.6-2.42 3.34V21H10z"/></svg></a>
+        <a href="#" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.3 8.3L23.3 22H16.9l-5-6.6L6 22H2.9l7.8-8.9L1.7 2h6.6l4.5 6z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tide&Seak — Freight Intelligence for Bulk Cargo Chartering</title>
+<meta name="description" content="Tide&Seak brings freight forecasting, vessel intelligence, port constraints and scenario analysis together in one decision-support platform for bulk cargo chartering to India's East Coast.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="home">
+
+<!-- ==========================================================================
+     NAVBAR
+     ========================================================================== -->
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Tide&Seak home">
+      <img src="assets/logo/thislogo.png" alt="Tide&Seak">
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html" data-page="home">Home</a>
+      <a href="predict.html" data-page="predict">Predict</a>
+      <a href="simulate.html" data-page="simulate">Simulate</a>
+      <a href="about.html" data-page="about">About Us</a>
+      <a href="faq.html" data-page="faq">FAQ</a>
+      <a href="contact.html" data-page="contact">Contact</a>
+    </nav>
+
+    <div class="nav-cta">
+      <a href="login.html" class="login-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Login
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <ul>
+    <li><a href="index.html" data-page="home">Home</a></li>
+    <li><a href="predict.html" data-page="predict">Predict</a></li>
+    <li><a href="simulate.html" data-page="simulate">Simulate</a></li>
+    <li><a href="about.html" data-page="about">About Us</a></li>
+    <li><a href="faq.html" data-page="faq">FAQ</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+  <a href="login.html" class="btn btn-secondary mobile-login">Login</a>
+</div>
+
+<main>
+
+<!-- ==========================================================================
+     HERO
+     ========================================================================== -->
+<section class="hero">
+  <div class="hero-bg">
+    <img
+      src="https://images.unsplash.com/photo-1758549683132-72ac09a3d5b5?auto=format&fit=crop&w=2400&q=80"
+      alt="A bulk cargo ship silhouetted against a golden sunset over open ocean"
+      loading="eager">
+  </div>
+
+  <div class="wrap hero-inner">
+    <div class="hero-content">
+      <p class="eyebrow">AI-Powered Freight Intelligence</p>
+      <h1>Freight intelligence,<span class="accent-line">before the market moves.</span></h1>
+      <p class="lede">Predict freight rates, simulate chartering strategies, and make smarter vessel and cargo procurement decisions with data-driven intelligence.</p>
+
+      <div class="hero-ctas">
+        <a href="predict.html" class="btn btn-primary">Predict Freight <span class="arrow">→</span></a>
+        <a href="simulate.html" class="btn btn-secondary">Simulate Charter <span class="arrow">→</span></a>
+      </div>
+
+      <div class="hero-facets">
+        <div class="hero-facet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg>
+          <span>Forecast freight rates</span>
+        </div>
+        <div class="hero-facet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+          <span>Simulate scenarios</span>
+        </div>
+        <div class="hero-facet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15s3-8 9-8 9 8 9 8"/><path d="M5 15h14l-1.5 4h-11z"/></svg>
+          <span>Optimize vessel &amp; route</span>
+        </div>
+        <div class="hero-facet">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg>
+          <span>Reduce cost &amp; idle time</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="globe-sim" aria-label="Live route simulation showing cargo routes into India's East Coast">
+      <div class="globe-hud">
+        <span class="globe-pulse"></span>
+        <span>LIVE ROUTE MODEL</span>
+      </div>
+      <div id="globeCanvas" class="globe-canvas" role="img" aria-label="Interactive 3D Earth with animated cargo routes from Australia, Mozambique and Indonesia to India's East Coast"></div>
+      <div class="globe-label-layer" id="globeLabels" aria-label="Globe route points">
+        <button class="globe-point-label" type="button" data-globe-point="australia" data-name="Australia" data-coordinates="33.86 S, 151.20 E">Australia</button>
+        <button class="globe-point-label" type="button" data-globe-point="mozambique" data-name="Mozambique" data-coordinates="25.97 S, 32.58 E">Mozambique</button>
+        <button class="globe-point-label" type="button" data-globe-point="indonesia" data-name="Indonesia" data-coordinates="6.20 S, 106.80 E">Indonesia</button>
+        <button class="globe-point-label is-target" type="button" data-globe-point="india" data-name="East Coast India" data-coordinates="13.08 N, 80.27 E">East Coast India</button>
+        <div class="globe-tooltip" id="globeTooltip" role="status"></div>
+      </div>
+      <div class="globe-readout"><strong>03</strong><span>active lanes</span><i></i><strong>24.8kt</strong><span>avg vessel speed</span></div>
+    </div>
+  </div>
+
+  <div class="scroll-cue" aria-hidden="true">
+    <span>Scroll to explore</span>
+    <span class="line"></span>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     THE PROBLEM
+     ========================================================================== -->
+<section class="problem" id="problem">
+  <div class="wrap">
+    <div class="problem-grid">
+      <div class="problem-copy reveal">
+        <p class="eyebrow">The Challenge</p>
+        <h2 style="font-size:clamp(26px,3vw,38px); color:var(--paper);">Freight markets move fast. Chartering decisions shouldn't have to.</h2>
+        <blockquote>
+          Bulk cargo procurement is often driven by daily market monitoring and reactive decisions. Freight rates fluctuate, vessel availability changes, port constraints vary, and congestion can turn an attractive fixture into an expensive delay.
+        </blockquote>
+        <div style="margin-top:28px;">
+          <a href="about.html" class="btn-ghost">Learn more <span class="arrow">→</span></a>
+        </div>
+      </div>
+
+      <div class="factor-diagram reveal">
+        <div class="factor-list">
+          <div class="factor-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l6-8 4 5 8-10"/></svg>Freight Volatility</div>
+          <div class="factor-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 15s3-8 9-8 9 8 9 8"/><path d="M5 15h14l-1.5 4h-11z"/></svg>Vessel Availability</div>
+          <div class="factor-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2 4 6v6c0 5 4 9 8 10 4-1 8-5 8-10V6z"/></svg>Port Constraints</div>
+          <div class="factor-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="10" width="4" height="10"/><rect x="10" y="6" width="4" height="14"/><rect x="17" y="3" width="4" height="17"/></svg>Commodity Demand</div>
+          <div class="factor-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18z"/></svg>Market Conditions</div>
+        </div>
+
+        <svg class="factor-lines" viewBox="0 0 120 220" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 20 C 50 20, 60 110, 120 110" fill="none" stroke="#17b6c9" stroke-opacity="0.35" stroke-width="1"/>
+          <path d="M0 62 C 50 62, 60 110, 120 110" fill="none" stroke="#17b6c9" stroke-opacity="0.35" stroke-width="1"/>
+          <path d="M0 110 C 50 110, 60 110, 120 110" fill="none" stroke="#17b6c9" stroke-opacity="0.35" stroke-width="1"/>
+          <path d="M0 158 C 50 158, 60 110, 120 110" fill="none" stroke="#17b6c9" stroke-opacity="0.35" stroke-width="1"/>
+          <path d="M0 200 C 50 200, 60 110, 120 110" fill="none" stroke="#17b6c9" stroke-opacity="0.35" stroke-width="1"/>
+        </svg>
+
+        <div class="decision-box">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15s3-8 9-8 9 8 9 8"/><path d="M5 15h14l-1.5 4h-11z"/><path d="M12 7V3"/></svg>
+          <strong>Chartering<br>Decision</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     THE SOLUTION / CAPABILITIES
+     ========================================================================== -->
+<section class="solution" id="solution">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">The Solution</p>
+      <h2>From reactive chartering to predictive intelligence.</h2>
+      <p>Tide&amp;Seak brings freight forecasting, vessel intelligence, port constraints and scenario analysis together in a single decision-support platform.</p>
+    </div>
+
+    <!-- Predict -->
+    <div class="capability reveal">
+      <div class="capability-copy">
+        <p class="capability-tag">Predict</p>
+        <h3>See where freight is heading.</h3>
+        <p class="lead">Forecast future freight rates across vessel classes, routes and time horizons.</p>
+        <p>Model market direction ahead of fixture decisions, so timing becomes a deliberate choice rather than a guess.</p>
+        <div style="margin-top:22px;"><a href="predict.html" class="btn-ghost">Explore Predict <span class="arrow">→</span></a></div>
+      </div>
+      <div class="capability-viz">
+        <svg class="mini-chart" viewBox="0 0 340 160" preserveAspectRatio="xMidYMid meet">
+          <line class="grid-line" x1="0" y1="40" x2="340" y2="40"/>
+          <line class="grid-line" x1="0" y1="80" x2="340" y2="80"/>
+          <line class="grid-line" x1="0" y1="120" x2="340" y2="120"/>
+          <line x1="190" y1="10" x2="190" y2="150" stroke="#aec2d1" stroke-opacity="0.2" stroke-dasharray="2 4"/>
+          <path class="curve-hist" d="M0 100 C 30 95, 60 110, 90 90 S 150 70, 190 82" fill="none" stroke-width="2"/>
+          <path class="curve-fore" d="M190 82 C 220 88, 250 55, 280 48 S 320 30, 340 20" fill="none" stroke-width="2.2"/>
+          <circle cx="190" cy="82" r="3.5" fill="#f4f7fa"/>
+          <text x="196" y="14" fill="#7c93a3" font-family="Space Grotesk, sans-serif" font-size="9" letter-spacing="0.06em">FORECAST →</text>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Simulate -->
+    <div class="capability reveal">
+      <div class="capability-copy">
+        <p class="capability-tag">Simulate</p>
+        <h3>Test the decision before you make it.</h3>
+        <p class="lead">Compare charter-now versus charter-later scenarios and evaluate possible cost and risk outcomes.</p>
+        <p>Run alternative chartering strategies side by side before committing capital to a fixture.</p>
+        <div style="margin-top:22px;"><a href="simulate.html" class="btn-ghost">Explore Simulate <span class="arrow">→</span></a></div>
+      </div>
+      <div class="capability-viz">
+        <div class="sim-compare">
+          <div class="sim-row">
+            <span class="sim-label">Charter Now</span>
+            <div class="sim-bar-track"><div class="sim-bar-fill now" style="--fill:64%"></div></div>
+            <span class="sim-value">Base</span>
+          </div>
+          <div class="sim-row">
+            <span class="sim-label">Wait 2 Weeks</span>
+            <div class="sim-bar-track"><div class="sim-bar-fill wait" style="--fill:82%"></div></div>
+            <span class="sim-value">Illustrative</span>
+          </div>
+          <div class="sim-row">
+            <span class="sim-label">Wait 4 Weeks</span>
+            <div class="sim-bar-track"><div class="sim-bar-fill wait" style="--fill:45%"></div></div>
+            <span class="sim-value">Illustrative</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optimize -->
+    <div class="capability reveal">
+      <div class="capability-copy">
+        <p class="capability-tag">Optimize</p>
+        <h3>Find the right vessel for the job.</h3>
+        <p class="lead">Evaluate vessel suitability against cargo requirements, route characteristics and port infrastructure constraints.</p>
+        <p>Match tonnage and class to the realities of the discharge port before it becomes a costly surprise.</p>
+        <div style="margin-top:22px;"><a href="predict.html" class="btn-ghost">Explore Optimization <span class="arrow">→</span></a></div>
+      </div>
+      <div class="capability-viz">
+        <div class="vessel-match">
+          <div class="vessel-row"><span class="name">Panamax</span><span class="status-ok">Compatible ✓</span></div>
+          <div class="vessel-row"><span class="name">Supramax</span><span class="status-ok">Compatible ✓</span></div>
+          <div class="vessel-row"><span class="name">Capesize</span><span class="status-warn">Draft Limited ⚠</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     HOW IT WORKS
+     ========================================================================== -->
+<section class="hiw" id="how-it-works">
+  <div class="wrap">
+    <div class="section-head reveal" style="margin-left:auto; margin-right:auto; text-align:center;">
+      <p class="eyebrow" style="justify-content:center;">How It Works</p>
+      <h2>One platform. Every variable that matters.</h2>
+      <p style="margin-left:auto; margin-right:auto;">A single pipeline turns scattered market, vessel and port signals into one clear recommendation.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step reveal">
+        <div class="flow-marker"><div class="flow-node">01</div><div class="flow-line"></div></div>
+        <div class="flow-body"><h4>Market Data</h4><p>Freight indices, commodity flows and macro trade signals.</p></div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-marker"><div class="flow-node">02</div><div class="flow-line"></div></div>
+        <div class="flow-body"><h4>Freight Data</h4><p>Historical and live rate movements across routes and vessel classes.</p></div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-marker"><div class="flow-node">03</div><div class="flow-line"></div></div>
+        <div class="flow-body"><h4>Vessel Data</h4><p>Fleet availability, specifications and positioning.</p></div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-marker"><div class="flow-node">04</div><div class="flow-line"></div></div>
+        <div class="flow-body"><h4>Port Data</h4><p>Draft, berth and handling constraints at each destination.</p></div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-marker"><div class="flow-node">05</div><div class="flow-line"></div></div>
+        <div class="flow-body"><h4>AI / Analytics Engine</h4><p>Signals are combined, weighed and modeled together.</p></div>
+      </div>
+      <div class="flow-step reveal">
+        <div class="flow-marker"><div class="flow-node">06</div></div>
+        <div class="flow-body final"><h4>Intelligent Decision</h4><p>A clear, explainable chartering recommendation.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     GLOBAL TRADE → INDIA
+     ========================================================================== -->
+<section class="trade" id="global-trade">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Global Trade → India</p>
+      <h2>Global origins, one East Coast destination.</h2>
+      <p>Bulk cargo moves from major export markets toward receiving ports along India's East Coast. The map below is a conceptual illustration, not a precise navigational chart.</p>
+    </div>
+
+    <div class="trade-map-wrap reveal">
+      <svg class="trade-map" viewBox="0 0 900 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Stylized map showing shipping routes from Australia, the United States, Mozambique, Indonesia and Russia converging on India's East Coast">
+        <!-- faint contour grid -->
+        <g stroke="#aec2d1" stroke-opacity="0.08">
+          <line x1="0" y1="70" x2="900" y2="70"/>
+          <line x1="0" y1="140" x2="900" y2="140"/>
+          <line x1="0" y1="210" x2="900" y2="210"/>
+          <line x1="0" y1="280" x2="900" y2="280"/>
+          <line x1="0" y1="350" x2="900" y2="350"/>
+        </g>
+
+        <!-- destination: East Coast India -->
+        <circle cx="620" cy="210" r="5" fill="#3dd6e8"/>
+        <circle cx="620" cy="210" r="12" fill="none" stroke="#3dd6e8" stroke-opacity="0.35"/>
+        <text x="636" y="206" fill="#f4f7fa" font-family="Space Grotesk, sans-serif" font-size="13" font-weight="600">East Coast India</text>
+        <text x="636" y="224" fill="#7c93a3" font-family="Inter, sans-serif" font-size="10.5">Paradip · Visakhapatnam · Gangavaram</text>
+        <text x="636" y="238" fill="#7c93a3" font-family="Inter, sans-serif" font-size="10.5">Gopalpur · Dhamra · Haldia · Sagar</text>
+
+        <!-- origins -->
+        <circle cx="760" cy="330" r="4" fill="#c9973f"/>
+        <text x="772" y="334" fill="#aec2d1" font-family="Space Grotesk, sans-serif" font-size="11">Australia</text>
+
+        <circle cx="150" cy="150" r="4" fill="#c9973f"/>
+        <text x="30" y="146" fill="#aec2d1" font-family="Space Grotesk, sans-serif" font-size="11">United States</text>
+
+        <circle cx="520" cy="330" r="4" fill="#c9973f"/>
+        <text x="440" y="356" fill="#aec2d1" font-family="Space Grotesk, sans-serif" font-size="11">Mozambique</text>
+
+        <circle cx="700" cy="300" r="4" fill="#c9973f"/>
+        <text x="700" y="290" fill="#aec2d1" font-family="Space Grotesk, sans-serif" font-size="11">Indonesia</text>
+
+        <circle cx="600" cy="55" r="4" fill="#c9973f"/>
+        <text x="612" y="50" fill="#aec2d1" font-family="Space Grotesk, sans-serif" font-size="11">Russia</text>
+
+        <!-- animated routes -->
+        <path class="trade-route" d="M760 330 C 700 280, 660 250, 620 210"/>
+        <path class="trade-route" d="M150 150 C 320 130, 480 160, 620 210"/>
+        <path class="trade-route" d="M520 330 C 560 300, 590 260, 620 210"/>
+        <path class="trade-route" d="M700 300 C 670 270, 645 240, 620 210"/>
+        <path class="trade-route" d="M600 55 C 610 110, 615 160, 620 210"/>
+      </svg>
+    </div>
+
+    <p class="trade-note reveal">Global origins → Indian East Coast: illustrative trade lanes for orientation, not navigational data.</p>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     PORT INTELLIGENCE
+     ========================================================================== -->
+<section class="ports" id="ports">
+  <div class="wrap">
+    <div class="ports-grid">
+      <div class="reveal">
+        <p class="eyebrow">Port Intelligence</p>
+        <h2 style="font-size:clamp(26px,3vw,38px); color:var(--paper);">Because every port has a different reality.</h2>
+        <p style="color:var(--fog); margin-top:16px; max-width:44ch;">Draft, berth length, beam and cargo-handling capacity vary from port to port — and they quietly decide which vessels can actually call.</p>
+
+        <div class="constraint-list">
+          <div class="constraint-item"><strong>Draft &amp; LOA</strong>Depth and length limits at berth.</div>
+          <div class="constraint-item"><strong>Beam</strong>Width restrictions for larger tonnage.</div>
+          <div class="constraint-item"><strong>Cargo Handling</strong>Discharge rate and equipment on site.</div>
+          <div class="constraint-item"><strong>Congestion</strong>Waiting time before berthing.</div>
+        </div>
+      </div>
+
+      <div class="port-panel reveal">
+        <div class="port-panel-head">
+          <h4>Paradip</h4>
+          <span>Illustrative Panel</span>
+        </div>
+        <div class="port-panel-body">
+          <div class="port-metric"><span class="port-metric-label">Draft Compatibility</span><div class="port-metric-bar"><div class="port-metric-fill" style="width:82%;"></div></div></div>
+          <div class="port-metric"><span class="port-metric-label">Handling Capacity</span><div class="port-metric-bar"><div class="port-metric-fill" style="width:70%;"></div></div></div>
+          <div class="port-metric"><span class="port-metric-label">Congestion Level</span><div class="port-metric-bar"><div class="port-metric-fill" style="width:38%;"></div></div></div>
+
+          <div class="vessel-compat">
+            <span class="compat-chip ok">Panamax ✓</span>
+            <span class="compat-chip ok">Supramax ✓</span>
+            <span class="compat-chip warn">Capesize ⚠</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="disclaimer-note reveal">This panel is a product concept for illustration and does not represent verified, real-world port specifications.</p>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     PRODUCT EXPERIENCE PREVIEW
+     ========================================================================== -->
+<section class="preview" id="preview">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">Product Preview</p>
+      <h2>What a decision looks like inside Tide&amp;Seak.</h2>
+      <p>A conceptual look at how inputs become a recommendation — not a live calculation.</p>
+    </div>
+
+    <div class="preview-panel reveal">
+      <div class="preview-input">
+        <h5>User Input</h5>
+        <div class="preview-field"><span>Cargo</span><span>60,000 MT</span></div>
+        <div class="preview-field"><span>Origin</span><span>Australia</span></div>
+        <div class="preview-field"><span>Destination</span><span>Paradip</span></div>
+        <div class="preview-field"><span>Contract</span><span>3 Voyages</span></div>
+      </div>
+      <div class="preview-output">
+        <h5>Tide&amp;Seak Recommendation</h5>
+        <div class="preview-result"><span class="r-label">Recommended Vessel</span><span class="r-value">Panamax</span></div>
+        <div class="preview-result"><span class="r-label">Market Signal</span><span class="r-value good">Favorable</span></div>
+        <div class="preview-result"><span class="r-label">Port Compatibility</span><span class="r-value good">High</span></div>
+        <div class="preview-result"><span class="r-label">Idle Risk</span><span class="r-value good">Low</span></div>
+        <span class="preview-flag">Illustrative product preview — not a live forecast</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     TRUST / IMPACT
+     ========================================================================== -->
+<section class="impact" id="impact">
+  <div class="impact-bg">
+    <img src="https://images.unsplash.com/photo-1722413890417-67b8ce3f4005?auto=format&fit=crop&w=2000&q=75" alt="" loading="lazy">
+  </div>
+  <div class="wrap impact-inner">
+    <div class="section-head reveal">
+      <p class="eyebrow">Our Impact</p>
+      <h2>Built for the real work of bulk shipping.</h2>
+      <p>The goal is simple: give chartering teams a clearer view of the market before they commit.</p>
+    </div>
+
+    <div class="impact-grid reveal-stagger">
+      <div class="impact-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 17l6-8 4 5 8-10"/></svg>
+        <strong>Smarter Chartering</strong>
+        <p>Decisions grounded in forecast and simulation, not gut feel alone.</p>
+      </div>
+      <div class="impact-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="9"/></svg>
+        <strong>Lower Freight Exposure</strong>
+        <p>Enter the market with a clearer sense of timing and risk.</p>
+      </div>
+      <div class="impact-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+        <strong>Reduced Idle Time</strong>
+        <p>Match vessels to cargo and port realities before fixture.</p>
+      </div>
+      <div class="impact-item">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15s3-8 9-8 9 8 9 8"/><path d="M5 15h14l-1.5 4h-11z"/></svg>
+        <strong>Better Utilization</strong>
+        <p>Improve how vessel capacity is planned across voyages.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     FINAL CTA
+     ========================================================================== -->
+<section class="final-cta">
+  <div class="final-cta-bg">
+    <img src="https://images.unsplash.com/photo-1568347877321-f8935c7dc5a3?auto=format&fit=crop&w=2000&q=75" alt="" loading="lazy">
+  </div>
+  <div class="wrap final-cta-inner reveal">
+    <h2>Don't just react to the freight market. Anticipate it.</h2>
+    <p>Explore intelligent freight forecasting and chartering simulation.</p>
+    <div class="hero-ctas">
+      <a href="predict.html" class="btn btn-primary">Predict Freight <span class="arrow">→</span></a>
+      <a href="simulate.html" class="btn btn-secondary">Simulate Charter <span class="arrow">→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     FAQ
+     ========================================================================== -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <p class="eyebrow">FAQ</p>
+      <h2>Common questions.</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">What is Tide&amp;Seak?<span class="faq-icon"></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Tide&amp;Seak is a freight intelligence and chartering decision-support platform for bulk cargo procurement, focused on voyages into India's East Coast.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">What does the freight forecasting platform predict?<span class="faq-icon"></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Predict is built to forecast freight rate movement across vessel classes, routes and time horizons, helping teams anticipate market direction before fixing a vessel.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">Which vessel types can be evaluated?<span class="faq-icon"></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">The platform is designed around common bulk vessel classes such as Supramax, Panamax and Capesize, evaluated against cargo and port requirements.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">Which origins and East Coast Indian ports are supported?<span class="faq-icon"></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">The current focus spans origins including Australia, the United States, Mozambique, Indonesia and Russia, into East Coast Indian ports such as Paradip, Visakhapatnam, Gangavaram, Gopalpur, Dhamra, Haldia and Sagar-Sandheads.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">How does the platform account for port constraints?<span class="faq-icon"></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Port intelligence factors such as draft, LOA, beam and handling capacity are considered alongside market and vessel data to assess practical vessel-to-port fit.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">What is the difference between Predict and Simulate?<span class="faq-icon"></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Predict forecasts where freight rates are heading. Simulate lets you test specific chartering strategies — such as charter-now versus charter-later — against those conditions.</div></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-question" aria-expanded="false">Is Tide&amp;Seak a chartering platform or a decision-support platform?<span class="faq-icon"></span></button>
+        <div class="faq-answer"><div class="faq-answer-inner">Tide&amp;Seak is a decision-support platform. It informs chartering and procurement decisions rather than executing fixtures directly.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ==========================================================================
+     FOOTER
+     ========================================================================== -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo/thislogo.png" alt="Tide&Seak">
+        <p>Intelligent freight forecasting and chartering decision support.</p>
+      </div>
+      <div class="footer-col">
+        <h6>Platform</h6>
+        <ul>
+          <li><a href="predict.html">Predict</a></li>
+          <li><a href="simulate.html">Simulate</a></li>
+          <li><a href="predict.html">Optimize</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Company</h6>
+        <ul>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h6>Legal</h6>
+        <ul>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tide&amp;Seak. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.5h3.9V21H3.5zM10 8.5h3.7v1.7h.05c.52-.98 1.78-2 3.67-2 3.93 0 4.65 2.5 4.65 5.76V21h-3.9v-6.3c0-1.5-.03-3.44-2.1-3.44-2.1 0-2.42 1.6-2.42 3.34V21H10z"/></svg></a>
+        <a href="#" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.3 8.3L23.3 22H16.9l-5-6.6L6 22H2.9l7.8-8.9L1.7 2h6.6l4.5 6z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
