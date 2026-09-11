@@ -7,7 +7,7 @@ if (loginForm) {
         const email = document.getElementById("l-email").value;
         const password = document.getElementById("l-password").value;
 
-        const { data, error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password
         });
@@ -32,7 +32,7 @@ if (signupForm) {
         const email = document.getElementById('s-email').value;
         const password = document.getElementById('s-password').value;
 
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await supabaseClient.auth.signUp({
             email: email,
             password: password
         });
