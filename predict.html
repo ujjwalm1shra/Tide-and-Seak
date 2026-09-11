@@ -90,6 +90,16 @@
   </div>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+<script>
+    window.tideSupabaseClient.auth.getSession().then(({ data }) => {
+        if (!data.session) {
+            window.location.href = "login.html";
+        }
+    });
+</script>
 <script src="js/main.js"></script>
 </body>
 </html>
