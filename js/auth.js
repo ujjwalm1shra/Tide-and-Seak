@@ -44,7 +44,7 @@ if (signupForm) {
             return;
         }
 
-        alert("Account created! You can Login now...");
+        alert("Account created! You can Login now..");
         window.location.href = "login.html";
     });
 }
