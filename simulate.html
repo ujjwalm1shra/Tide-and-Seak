@@ -24,9 +24,21 @@
     </nav>
     <div class="nav-cta">
       <a href="login.html" class="login-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
         Login
       </a>
+
+      <button class="login-btn" id="logout-btn" type="button" style="display:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <path d="M16 17l5-5-5-5" />
+          <path d="M21 12H9" />
+        </svg>
+        Logout
+      </button>
       <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -91,6 +103,35 @@
     </div>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+<script>
+  const loginBtn = document.querySelector('.login-btn[href="login.html"]');
+  const logoutBtn = document.getElementById("logout-btn");
+
+  window.tideSupabaseClient.auth.getSession().then(({ data }) => {
+    if (!data.session) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-flex";
+  });
+
+  logoutBtn.addEventListener("click", async () => {
+    const { error } = await window.tideSupabaseClient.auth.signOut();
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    window.location.href = "login.html";
+  });
+</script>
 
 <script src="js/main.js"></script>
 </body>
