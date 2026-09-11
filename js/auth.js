@@ -33,7 +33,10 @@ if (signupForm) {
 
         const { data, error } = await window.tideSupabaseClient.auth.signUp({
             email: email,
-            password: password
+            password: password,
+            options: {
+                emailRedirectTo: 'https://ujjwalm1shra.github.io/Tide-and-Seak/login.html'
+            }
         });
 
         if (error) {
