@@ -10,89 +10,139 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body data-page="predict">
-<header class="nav"><div class="wrap nav-inner">
-  <a href="index.html" class="nav-logo"><img src="assets/logo/thislogo.png" alt="Tide&Seak"></a>
-  <nav class="nav-links" aria-label="Primary"><a href="index.html">Home</a><a class="active" href="predict.html">Predict</a><a href="simulate.html">Simulate</a><a href="about.html">About Us</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></nav>
-  <a href="login.html" class="login-btn">Login</a>
-</div></header>
+
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Tide&Seak home"><img src="assets/logo/thislogo.png" alt="Tide&Seak"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html" data-page="home">Home</a>
+      <a href="predict.html" data-page="predict">Predict</a>
+      <a href="simulate.html" data-page="simulate">Simulate</a>
+      <a href="about.html" data-page="about">About Us</a>
+      <a href="faq.html" data-page="faq">FAQ</a>
+      <a href="contact.html" data-page="contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+
+      <a href="login.html" class="login-btn">
+
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+
+        Login
+
+      </a>
+    <button class="login-btn" id="logout-btn" type="button" style="display:none;">
+
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+        <polyline points="16 17 21 12 16 7" />
+        <line x1="21" y1="12" x2="9" y2="12" />
+      </svg>
+
+      Logout
+
+    </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <ul>
+    <li><a href="index.html" data-page="home">Home</a></li>
+    <li><a href="predict.html" data-page="predict">Predict</a></li>
+    <li><a href="simulate.html" data-page="simulate">Simulate</a></li>
+    <li><a href="about.html" data-page="about">About Us</a></li>
+    <li><a href="faq.html" data-page="faq">FAQ</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+  <a href="login.html" class="btn btn-secondary mobile-login">Login</a>
+</div>
+
 <main>
-  <section class="subpage-hero voyage-hero"><div class="wrap">
-    <p class="eyebrow">Voyage planning</p><h1>Price the voyage before you fix a vessel.</h1>
-    <p>Build a transparent route scenario from a verified port pair, then carry it into a dated voyage forecast and simulator.</p>
-  </div></section>
-  <section class="subpage-body"><div class="wrap">
-    <div class="voyage-layout">
-      <form id="voyageForm" class="voyage-form" novalidate>
-        <div class="section-head"><p class="eyebrow">Shipment details</p><h2>Start with the cargo.</h2><p>Required inputs drive the route and fare scenario. Optional vessel assumptions make the timing more precise.</p></div>
-        <div class="form-grid">
-          <label>Mineral / cargo<select id="cargo" required><option value="">Select cargo</option><option>Iron ore</option><option>Coal</option><option>Bauxite</option><option>Limestone</option><option>Manganese ore</option></select></label>
-          <label>Start date<input id="startDate" type="date" required></label>
-          <label>Quantity (tonnes)<input id="quantity" type="number" min="1" step="1" placeholder="e.g. 25000" required></label>
-          <label>Vessel type<select id="vesselType"><option>Supramax</option><option>Handysize</option><option>Panamax</option></select></label>
-          <label>Vessel speed (knots)<input id="speed" type="number" min="1" max="30" step="0.5" value="12"></label>
-          <label>Fuel price (USD / tonne)<input id="fuelPrice" type="number" min="1" step="1" value="650"></label>
-        </div>
-        <p id="formError" class="form-error" role="alert"></p>
-        <div class="route-selection"><p class="eyebrow">Route selection</p><div class="form-grid">
-          <label>Origin port<select id="origin" required></select></label>
-          <label>Destination port<select id="destination" required></select></label>
-        </div></div>
-        <button class="btn btn-primary" type="submit">Calculate route <span class="arrow">→</span></button>
-      </form>
-      <div class="route-panel">
-        <div class="route-panel-head"><div><p class="eyebrow">Interactive route map</p><h2 id="routeTitle">Select two ports</h2></div><span id="routeDistance" class="route-distance">— nm</span></div>
-        <div class="route-map" id="routeMap" tabindex="0" aria-label="Interactive route map">
-          <svg viewBox="0 0 640 360" role="img" aria-label="Schematic maritime route map"><path class="map-shape" d="M30 62l110-22 58 32 91-20 90 30 106-25 124 52-35 50 56 47-102 22-84-24-80 28-89-20-111 33-91-44 35-54z"></path><path id="routePath" class="route-path" d="" tabindex="0"></path><g id="portNodes"></g></svg>
-          <div class="map-legend"><span><i class="legend-dot origin-dot"></i> Origin</span><span><i class="legend-dot destination-dot"></i> Destination</span></div>
-          <div id="routeTooltip" class="route-tooltip" role="dialog" aria-live="polite"></div>
-        </div>
-        <p id="routeHint" class="route-hint">Select an origin and destination to draw a route. Hover or tap the route for the fare preview.</p>
+  <section class="subpage-hero">
+    <div class="wrap">
+      <p class="eyebrow">Predict</p>
+      <h1>See where freight is heading, before you fix a vessel.</h1>
+      <p>Predict forecasts freight rate movement across vessel classes, routes and time horizons — turning market noise into a clearer read on timing.</p>
+      <div class="hero-ctas" style="margin-top:36px;">
+        <a href="simulate.html" class="btn btn-secondary">Explore Simulate <span class="arrow">→</span></a>
+        <a href="contact.html" class="btn btn-primary">Request Access <span class="arrow">→</span></a>
       </div>
     </div>
-  </div></section>
+  </section>
+
+  <section class="subpage-body">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Coming to this page</p>
+        <h2>The full forecasting workspace.</h2>
+        <p>This endpoint is reserved for the Predict product experience — rate curves by route and vessel class, confidence bands, and historical-versus-forecast views.</p>
+      </div>
+      <p class="reveal">In the meantime, the homepage capability preview above gives a sense of how forecasts will be presented once this workspace is built out.</p>
+    </div>
+  </section>
 </main>
-<script src="js/main.js"></script><script src="js/voyage.js"></script>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo/thislogo.png" alt="Tide&Seak">
+        <p>Intelligent freight forecasting and chartering decision support.</p>
+      </div>
+      <div class="footer-col"><h6>Platform</h6><ul><li><a href="predict.html">Predict</a></li><li><a href="simulate.html">Simulate</a></li><li><a href="predict.html">Optimize</a></li></ul></div>
+      <div class="footer-col"><h6>Company</h6><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h6>Legal</h6><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tide&amp;Seak. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.5h3.9V21H3.5zM10 8.5h3.7v1.7h.05c.52-.98 1.78-2 3.67-2 3.93 0 4.65 2.5 4.65 5.76V21h-3.9v-6.3c0-1.5-.03-3.44-2.1-3.44-2.1 0-2.42 1.6-2.42 3.34V21H10z"/></svg></a>
+        <a href="#" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.3 8.3L23.3 22H16.9l-5-6.6L6 22H2.9l7.8-8.9L1.7 2h6.6l4.5 6z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
 <script>
-(function () {
-  var form = document.getElementById('voyageForm'), origin = document.getElementById('origin'), destination = document.getElementById('destination');
-  var nodes = document.getElementById('portNodes'), path = document.getElementById('routePath'), tooltip = document.getElementById('routeTooltip'), scenario = null;
-  TideVoyage.ports.forEach(function (port) {
-  origin.appendChild(new Option(port.name, port.id));
-  destination.appendChild(new Option(port.name, port.id));
-  });
-  destination.value = 'singapore';
-  function project(port) { return { x: 60 + (port.lon - 30) * 4.35, y: 280 - (port.lat + 35) * 3.1 }; }
-  function drawPorts() {
-    nodes.innerHTML = '';
-    TideVoyage.ports.forEach(function (port) {
-      var point = project(port), circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-      circle.setAttribute('cx', point.x); circle.setAttribute('cy', point.y); circle.setAttribute('r', port.id === origin.value || port.id === destination.value ? '8' : '5');
-      circle.setAttribute('class', 'port-node ' + (port.id === origin.value ? 'is-origin' : port.id === destination.value ? 'is-destination' : ''));
-      circle.setAttribute('tabindex', '0'); circle.setAttribute('aria-label', port.name);
-      circle.addEventListener('click', function () { if (!origin.value || (origin.value && destination.value)) { origin.value = port.id; } else { destination.value = port.id; } updateRoute(); });
-      nodes.appendChild(circle);
+    const loginBtn = document.querySelector('.login-btn[href="login.html"]');
+    const logoutBtn = document.getElementById("logout-btn");
+
+    window.tideSupabaseClient.auth.getSession().then(({ data }) => {
+        // PRESERVED AUTH CHECK: If NOT logged in, send them to login
+        if (!data.session) {
+            window.location.href = "login.html";
+            return;
+        }
+
+        loginBtn.style.display = "none";
+        logoutBtn.style.display = "inline-flex";
+
+        // NEW REDIRECT STEP: If they ARE logged in, send them to Render
+        // !!! REPLACE THE URL BELOW WITH YOUR ACTUAL RENDER LINK !!!
+        window.location.replace("https://tideandseak.onrender.com/");
     });
-  }
-  function showTooltip(event) {
-    if (!scenario) return;
-    tooltip.innerHTML = '<strong>' + scenario.origin + ' → ' + scenario.destination + '</strong><span>' + scenario.cargo + ' · ' + scenario.quantity.toLocaleString() + ' tonnes</span><span>' + Math.round(scenario.distance).toLocaleString() + ' nm · $' + scenario.fare.toFixed(2) + ' / tonne</span><strong>Estimated freight $' + TideVoyage.formatMoney(scenario.totalFreight) + '</strong><button type="button" id="viewForecast">View Voyage Forecast →</button>';
-    var rect = document.getElementById('routeMap').getBoundingClientRect(); tooltip.style.left = Math.min(Math.max(event.clientX - rect.left + 12, 8), rect.width - 260) + 'px'; tooltip.style.top = Math.max(event.clientY - rect.top - 90, 8) + 'px'; tooltip.classList.add('is-visible');
-    document.getElementById('viewForecast').onclick = openForecast;
-  }
-  function openForecast() { TideVoyage.saveScenario(scenario); window.location.href = 'voyage-forecast.html'; }
-  function updateRoute() {
-    drawPorts(); var a = TideVoyage.getPort(origin.value), b = TideVoyage.getPort(destination.value);
-    if (!a || !b || a.id === b.id) { path.setAttribute('d', ''); document.getElementById('routeTitle').textContent = 'Select two ports'; document.getElementById('routeDistance').textContent = '— nm'; scenario = null; return; }
-    var p1 = project(a), p2 = project(b), midX = (p1.x + p2.x) / 2, midY = Math.min(p1.y, p2.y) - 55;
-    path.setAttribute('d', 'M ' + p1.x + ' ' + p1.y + ' Q ' + midX + ' ' + midY + ' ' + p2.x + ' ' + p2.y); path.classList.add('is-visible');
-    scenario = TideVoyage.buildScenario({ origin: a.id, destination: b.id, cargo: document.getElementById('cargo').value || 'Iron ore', quantity: Number(document.getElementById('quantity').value) || 25000, startDate: document.getElementById('startDate').value || new Date().toISOString().slice(0,10), vesselType: document.getElementById('vesselType').value, speed: document.getElementById('speed').value, fuelPrice: document.getElementById('fuelPrice').value });
-    document.getElementById('routeTitle').textContent = a.name + ' → ' + b.name; document.getElementById('routeDistance').textContent = Math.round(scenario.distance).toLocaleString() + ' nm';
-  }
-  form.addEventListener('input', updateRoute); origin.addEventListener('change', updateRoute); destination.addEventListener('change', updateRoute);
-  path.addEventListener('mousemove', showTooltip); path.addEventListener('mouseenter', showTooltip); path.addEventListener('mouseleave', function () { tooltip.classList.remove('is-visible'); }); path.addEventListener('click', openForecast); path.addEventListener('touchstart', function (event) { showTooltip(event.touches[0]); }, { passive: true });
-  form.addEventListener('submit', function (event) { event.preventDefault(); var missing = ['cargo', 'startDate', 'quantity'].some(function (id) { return !document.getElementById(id).value; }); var a = TideVoyage.getPort(origin.value), b = TideVoyage.getPort(destination.value); if (missing || !a || !b || a.id === b.id) { document.getElementById('formError').textContent = 'Complete the cargo, date, quantity, and two different ports.'; return; } document.getElementById('formError').textContent = ''; updateRoute(); document.getElementById('routeMap').scrollIntoView({ behavior: 'smooth', block: 'center' }); });
-  drawPorts();
-}());
+
+    logoutBtn.addEventListener("click", async () => {
+        const { error } = await window.tideSupabaseClient.auth.signOut();
+
+        if (error) {
+            alert(error.message);
+            return;
+        }
+
+        window.location.href = "login.html";
+    });
 </script>
+
+
+<script src="js/main.js"></script>
 </body>
 </html>

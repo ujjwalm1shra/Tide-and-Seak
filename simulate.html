@@ -1,14 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Simulate — Tide&Seak</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"><link rel="stylesheet" href="css/style.css"></head>
-<body data-page="simulate"><header class="nav"><div class="wrap nav-inner"><a href="index.html" class="nav-logo"><img src="assets/logo/thislogo.png" alt="Tide&Seak"></a><nav class="nav-links" aria-label="Primary"><a href="index.html">Home</a><a href="predict.html">Predict</a><a class="active" href="simulate.html">Simulate</a><a href="about.html">About Us</a><a href="faq.html">FAQ</a><a href="contact.html">Contact</a></nav><a href="login.html" class="login-btn">Login</a></div></header>
-<main><section class="subpage-hero voyage-hero"><div class="wrap"><p class="eyebrow">Simulate</p><h1>Stress-test the voyage economics.</h1><p>Adjust fuel and operating assumptions without retraining the fare model. The base scenario remains visible for comparison.</p></div></section><section class="subpage-body"><div class="wrap"><div id="simulatorEmpty" class="empty-state" hidden><h2>Open a voyage first</h2><a class="btn btn-primary" href="predict.html">Build a voyage scenario</a></div><div id="simulatorContent" class="simulator-layout"><section class="panel"><p class="eyebrow">Selected voyage</p><h2 id="simRoute"></h2><p id="simMeta"></p><div class="sim-controls"><label>Fuel price <output id="fuelOutput"></output><input id="simFuel" type="range" min="300" max="1200" step="10"></label><label>Operating cost / day <output id="operatingOutput"></output><input id="simOperating" type="range" min="2500" max="12000" step="100" value="5000"></label><label>Vessel speed (knots) <output id="speedOutput"></output><input id="simSpeed" type="range" min="8" max="18" step="0.5"></label></div><button id="resetSimulator" class="btn btn-secondary" type="button">Reset to base values</button></section><section class="panel simulator-result"><p class="eyebrow">Scenario output</p><span>Scenario fare</span><strong id="scenarioFare"></strong><small id="fareDifference"></small><dl><div><dt>Voyage duration</dt><dd id="simDuration"></dd></div><div><dt>Fuel cost</dt><dd id="fuelCost"></dd></div><div><dt>Total operating cost</dt><dd id="operatingCost"></dd></div></dl><a href="voyage-forecast.html" class="btn btn-primary">Back to Forecast →</a></section></div></div></section></main>
-<script src="js/main.js"></script><script src="js/voyage.js"></script><script>
-(function () {
-  var base = TideVoyage.loadScenario(); if (!base) { document.getElementById('simulatorEmpty').hidden = false; document.getElementById('simulatorContent').hidden = true; return; }
-  var fuel = document.getElementById('simFuel'), operating = document.getElementById('simOperating'), speed = document.getElementById('simSpeed');
-  fuel.value = base.fuelPrice; speed.value = base.speed; document.getElementById('simRoute').textContent = base.origin + ' → ' + base.destination; document.getElementById('simMeta').textContent = base.cargo + ' · ' + base.quantity.toLocaleString() + ' tonnes · ' + Math.round(base.distance).toLocaleString() + ' nm';
-  function update() { var fuelPrice = Number(fuel.value), op = Number(operating.value), knots = Number(speed.value), days = base.distance / knots / 24, fuelCost = days * 24 * 5 * fuelPrice, fare = base.fare + (fuelPrice - base.fuelPrice) * base.quantity / Math.max(base.quantity, 10000) * 0.03 + (op - 5000) * days / Math.max(base.quantity, 10000); document.getElementById('fuelOutput').textContent = '$' + fuelPrice + ' / t'; document.getElementById('operatingOutput').textContent = '$' + op.toLocaleString() + ' / day'; document.getElementById('speedOutput').textContent = knots + ' knots'; document.getElementById('scenarioFare').textContent = '$' + fare.toFixed(2) + ' / tonne'; document.getElementById('fareDifference').textContent = (fare - base.fare >= 0 ? '+' : '') + (fare - base.fare).toFixed(2) + ' vs base fare'; document.getElementById('simDuration').textContent = days.toFixed(1) + ' days'; document.getElementById('fuelCost').textContent = '$' + TideVoyage.formatMoney(fuelCost); document.getElementById('operatingCost').textContent = '$' + TideVoyage.formatMoney(op * days); }
-  [fuel, operating, speed].forEach(function (input) { input.addEventListener('input', update); }); document.getElementById('resetSimulator').onclick = function () { fuel.value = base.fuelPrice; operating.value = 5000; speed.value = base.speed; update(); }; update();
-}());
-</script></body></html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulate — Tide&Seak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="simulate">
+
+<header class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="index.html" class="nav-logo" aria-label="Tide&Seak home"><img src="assets/logo/thislogo.png" alt="Tide&Seak"></a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html" data-page="home">Home</a>
+      <a href="predict.html" data-page="predict">Predict</a>
+      <a href="simulate.html" data-page="simulate">Simulate</a>
+      <a href="about.html" data-page="about">About Us</a>
+      <a href="faq.html" data-page="faq">FAQ</a>
+      <a href="contact.html" data-page="contact">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="login.html" class="login-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        Login
+      </a>
+
+      <button class="login-btn" id="logout-btn" type="button" style="display:none;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+          <path d="M16 17l5-5-5-5" />
+          <path d="M21 12H9" />
+        </svg>
+        Logout
+      </button>
+      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer">
+  <ul>
+    <li><a href="index.html" data-page="home">Home</a></li>
+    <li><a href="predict.html" data-page="predict">Predict</a></li>
+    <li><a href="simulate.html" data-page="simulate">Simulate</a></li>
+    <li><a href="about.html" data-page="about">About Us</a></li>
+    <li><a href="faq.html" data-page="faq">FAQ</a></li>
+    <li><a href="contact.html" data-page="contact">Contact</a></li>
+  </ul>
+  <a href="login.html" class="btn btn-secondary mobile-login">Login</a>
+</div>
+
+<main>
+
+  <section class="subpage-hero">
+    <div class="wrap">
+      <p class="eyebrow">Simulate</p>
+      <h1>Test the decision before you make it.</h1>
+      <p>Simulate lets you compare charter-now versus charter-later scenarios, weighing possible cost and risk outcomes before committing to a fixture.</p>
+      <div class="hero-ctas" style="margin-top:36px;">
+        <a href="predict.html" class="btn btn-secondary">Explore Predict <span class="arrow">→</span></a>
+        <a href="contact.html" class="btn btn-primary">Request Access <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="subpage-body">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <p class="eyebrow">Coming to this page</p>
+        <h2>Scenario comparison, side by side.</h2>
+        <p>This endpoint is reserved for the Simulate workspace — charter-now versus wait scenarios, voyage economics, and downside/upside ranges for each strategy.</p>
+      </div>
+      <p class="reveal">The homepage's Simulate preview shows the general shape of this comparison; the full workspace will let you configure your own cargo, route and time horizon.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img src="assets/logo/thislogo.png" alt="Tide&Seak">
+        <p>Intelligent freight forecasting and chartering decision support.</p>
+      </div>
+      <div class="footer-col"><h6>Platform</h6><ul><li><a href="predict.html">Predict</a></li><li><a href="simulate.html">Simulate</a></li><li><a href="predict.html">Optimize</a></li></ul></div>
+      <div class="footer-col"><h6>Company</h6><ul><li><a href="about.html">About Us</a></li><li><a href="faq.html">FAQ</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+      <div class="footer-col"><h6>Legal</h6><ul><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms of Service</a></li></ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Tide&amp;Seak. All rights reserved.</span>
+      <div class="footer-social">
+        <a href="#" aria-label="LinkedIn"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM3.5 8.5h3.9V21H3.5zM10 8.5h3.7v1.7h.05c.52-.98 1.78-2 3.67-2 3.93 0 4.65 2.5 4.65 5.76V21h-3.9v-6.3c0-1.5-.03-3.44-2.1-3.44-2.1 0-2.42 1.6-2.42 3.34V21H10z"/></svg></a>
+        <a href="#" aria-label="X (Twitter)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.3 8.3L23.3 22H16.9l-5-6.6L6 22H2.9l7.8-8.9L1.7 2h6.6l4.5 6z"/></svg></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase.js"></script>
+
+<script>
+  const loginBtn = document.querySelector('.login-btn[href="login.html"]');
+  const logoutBtn = document.getElementById("logout-btn");
+
+  window.tideSupabaseClient.auth.getSession().then(({ data }) => {
+    if (!data.session) {
+      window.location.href = "login.html";
+      return;
+    }
+
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-flex";
+  });
+
+  logoutBtn.addEventListener("click", async () => {
+    const { error } = await window.tideSupabaseClient.auth.signOut();
+
+    if (error) {
+      alert(error.message);
+      return;
+    }
+
+    window.location.href = "login.html";
+  });
+</script>
+
+<script src="js/main.js"></script>
+</body>
+</html>
