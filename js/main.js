@@ -121,7 +121,7 @@
   if (globeCanvas && window.THREE && window.THREE.OrbitControls) {
     var scene = new THREE.Scene();
     var camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-    camera.position.set(0, 0.25, 6.4);
+    camera.position.set(0, 0.25, 8.25);
 
     var renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -133,7 +133,7 @@
     controls.dampingFactor = 0.055;
     controls.enablePan = false;
     controls.enableZoom = true;
-    controls.minDistance = 4.7;
+    controls.minDistance = 6.8;
     controls.maxDistance = 8;
     controls.autoRotate = false;
     controls.autoRotateSpeed = 0.45;
