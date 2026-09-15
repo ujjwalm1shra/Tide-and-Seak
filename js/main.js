@@ -141,7 +141,6 @@
     var globeGroup = new THREE.Group();
     globeGroup.rotation.set(0, 0, -0.08);
     scene.add(globeGroup);
-
     var textureLoader = new THREE.TextureLoader();
     var earthTexture = textureLoader.load('https://threejs.org/examples/textures/planets/earth_atmos_2048.jpg');
     var earthNormal = textureLoader.load('https://threejs.org/examples/textures/planets/earth_normal_2048.jpg');

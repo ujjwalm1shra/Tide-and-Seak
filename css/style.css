@@ -191,7 +191,7 @@ h1, h2, h3, h4 {
 
 .nav {
   position: fixed;
-  top: 0;
+  top: -15px;
   left: 0;
   right: 0;
   z-index: 100;
@@ -345,7 +345,7 @@ h1, h2, h3, h4 {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  overflow: visible;
   background: var(--ink);
 }
 
@@ -451,8 +451,10 @@ h1, h2, h3, h4 {
   width: min(100%, 560px);
   aspect-ratio: 1;
   opacity: 0;
-  transform: translateY(16px) scale(0.96);
+  transform: translateY(-10px) scale(0.96);
   animation: globe-in 900ms var(--ease-out) 0.28s forwards;
+  overflow: visible;
+
 }
 .globe-hud {
   position: absolute;
@@ -533,7 +535,7 @@ h1, h2, h3, h4 {
 .globe-readout { position: absolute; right: 16%; bottom: -4%; display: flex; align-items: baseline; gap: 7px; color: var(--fog-dim); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; }
 .globe-readout strong { color: var(--paper); font: 600 17px var(--font-display); }
 .globe-readout i { width: 1px; height: 17px; margin: 0 7px; background: var(--hairline-strong); }
-@keyframes globe-in { to { opacity: 1; transform: translateY(0) scale(1); } }
+@keyframes globe-in { to { opacity: 1; transform: translateY(-60px) scale(1); } }
 @keyframes globe-pulse { 50% { box-shadow: 0 0 0 9px rgba(201, 151, 63, 0); } }
 
 .scroll-cue {
